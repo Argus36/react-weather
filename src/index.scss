@@ -1,7 +1,8 @@
 * {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  color: black;
 }
 
 html {
@@ -27,19 +28,47 @@ code {
 
 
 .App {
-  width: 100vw;
+  width: 100%;
   height: 100vh;
 
-  .container {
-    width: 100vw;
+  .weater_container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0 2.5vw 0 2.5vw;
+
+    .phone {
+      width: 60vh;
+      height: 95vh;
+      background: inherit;
+      box-shadow: inset 0 0 0 3000px rgba(255, 255, 255, 0.25);
+      border: solid 10px rgba(255, 255, 255);
+      border-radius: 60px;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+
+      p {
+        font-size: 1.5em;
+        margin: 1vh;
+        font-weight: 500;
+      }
+    }
+
+
+  }
+
+  .sun_container {
+    width: 100%;
     height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
 
-    p {
-      font-size: 1.5em;
-      margin: 1vh;
+    h1 {
+      font-size: 2em;
     }
   }
 }
