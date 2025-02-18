@@ -7,7 +7,7 @@ function App() {
   const [lat, setLat] = useState(null);
   const [lon, setLon] = useState(null);
   const [weatherData, setWeatherData] = useState(null);
-  const [windDirection, setWindDirection] = useState(null);
+  const [city, setCity] = useState(null);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(position => {
@@ -19,15 +19,18 @@ function App() {
   useEffect(() => {
     if (lat !== null && lon !== null) {
       getWeatherData();
+    }else {
+
     }
   }, [lat, lon]);
 
   const getWeatherData = async () => {
     try {
-      const pos = await fetch(`http://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=5&appid=${apiKey}`);
+      const pos = await fetch(`https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&appid=${apiKey}`);
       const posw = await pos.json();
+      setCity(posw[0].local_names.ru);
 
-      const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&q=${posw[0].name}&limit=5&units=metric&appid=${apiKey}&lang=ru`);
+      const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?&lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}&lang=ru`);
       const data = await response.json();
 
       setWeatherData(data);
@@ -84,7 +87,7 @@ function sunS(date) {
   return (`${god.getHours()}:${god.getMinutes()}`)
 }
 
-function background(back_weather) {
+function weatherDefinition(back_weather) {
   switch (back_weather) {
     case 'Clear':
       return (
@@ -93,7 +96,7 @@ function background(back_weather) {
       break;
     case 'Clouds':
       return (
-        {background: `linear-gradient(170deg, #D0D0E2 23%, #C2CCD1 59%, #B6C9DD 100%)`}
+        {background: `linear-gradient(170deg, #e2e2e2 23%, #C2CCD1 59%, #B6C9DD 100%)`}
       );
       break;
     case 'Drizzle' || 'Rain':
@@ -107,7 +110,7 @@ function background(back_weather) {
         {background: `linear-gradient(170deg, #302E48 23%, #4B4A57 59%, #676767 100%)`}
       );
       break;
-    case 'Show':
+    case 'Snow':
       return (
         {background: `linear-gradient(170deg, #FFFFFF 40%,rgb(165, 165, 165) 80%`}
       );
@@ -125,30 +128,29 @@ function background(back_weather) {
         {!weatherData ? (
           <div style={{background: `white`,
             display: `flex`,
+            flexDirection: `column`,
             alignItems: `center`,
             justifyContent: `center`}} className="weater_container">
             <p style={{fontSize: `3vw`}}>Загрузка ...</p>
+            <p style={{fontSize: `1vw`}}>(Если длится слишком долго возможно у вас отключена геолокация)</p>
           </div>
         ) : (
-          <div>
-            <div style={{background: `linear-gradient(170deg, #FFFFFF 40%,rgb(165, 165, 165) 80%`}} className="weater_container">
-              <p style={{position: `fixed`, top: `2.5%`, left: `0`}}>Широта : '{lat}'</p>
-              <p style={{position: `fixed`, top: `5%`, left: `0`}}>Долгота : '{lon}'</p>
-              <div className="phone">
-                <div>
-                  <p>Название города : '{weatherData.name}'</p>
-                  <p>Фактическая температура : '{weatherData.main.temp}'</p>
-                  <p>Как ощущается '{weatherData.main.feels_like}'</p>
-                  <p>base '{weatherData.weather[0].main}'</p>
-                  <p>Сама погода : '{String(weatherData.weather[0].description).charAt(0).toUpperCase() + String(weatherData.weather[0].description).slice(1)}'</p>
-                  <p>Облачность : '{weatherData.clouds.all}%'</p>
-                  <p>Скорость ветра : '{weatherData.wind.speed}'</p>
-                  <p>Направление : '{windeg(weatherData.wind.deg)}'</p>
-                  <p>Атмосферное давление : '{aM(weatherData.main.grnd_level)} мм рт.ст'</p>
-                  <p>Влажность : '{weatherData.main.humidity}%'</p>
-                  <p>Время восхода солнца : {sunR(weatherData.sys.sunrise)}</p>
-                  <p>Время захода солнца : {sunS(weatherData.sys.sunset)}</p>
-                  <p>иконка : {weatherData.weather[0].icon}</p>
+          <div style={weatherDefinition(weatherData.weather[0].main)}>
+            <div className="weater_container">
+              <div className="phone_border">
+                <div className="phone">
+                  <h1>Погода в <span style={{color: `white`, fontSize: `2vh`}}>г.</span>{city}</h1>
+                  <img style={{width: `5vh`}} src={`./react-weather/Img/${weatherData.weather[0].icon}.png`}/>
+                  <div className="topPhone">
+  <p>base '{weatherData.weather[0].main}'</p>
+  <p>Сама погода : '{String(weatherData.weather[0].description).charAt(0).toUpperCase() + String(weatherData.weather[0].description).slice(1)}'</p>
+                  </div>
+                  <div className="middlePhone">
+
+                  </div>
+                  <div className="footerPhone">
+
+                  </div>
                 </div>
               </div>
             </div>
@@ -162,7 +164,7 @@ function background(back_weather) {
 }
 
 /*
-  <p>Название города : '{weatherData.name}'</p>
+  <p>Название города : '{city}'</p>
   <p>Фактическая температура : '{weatherData.main.temp}'</p>
   <p>Как ощущается '{weatherData.main.feels_like}'</p>
   <p>base '{weatherData.weather[0].main}'</p>
@@ -177,6 +179,7 @@ function background(back_weather) {
   <p>иконка : {weatherData.weather[0].icon}</p>
 */
 
-
+//<p style={{position: `fixed`, top: `2.5%`, left: `0`}}>Широта : '{lat}'</p>
+//<p style={{position: `fixed`, top: `5%`, left: `0`}}>Долгота : '{lon}'</p>
 
 export default App;
