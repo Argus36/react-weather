@@ -40,37 +40,61 @@ function App() {
   };
 
   function windeg(num) {
-    if (0 < num && num < 30) {
+    if (num <= 11) {
       return('С');
     }
-    if (30 <= num && num < 60) {
-      return('С-В');
+    if (11 < num && num <= 33) {
+      return('ССВ');
     }
-    if (60 <= num && num < 120) {
+    if (33 < num && num <= 56) {
+      return('СВ');
+    }
+    if (56 < num && num < 78) {
+      return('ВСВ');
+    }
+    if (78 <= num && num <= 101) {
       return('В');
     }
-    if (120 <= num && num < 150) {
-      return('ЮГ-В');
+    if (101 < num && num <= 123) {
+      return('ВЮВ');
     }
-    if (150 <= num && num < 210) {
-      return('ЮГ');
+    if (123 < num && num <= 146) {
+      return('ЮВ');
     }
-    if (210 <= num && num < 240) {
-      return('ЮГ-З');
+    if (146 < num && num < 168) {
+      return('ЮЮВ');
     }
-    if (240 <= num && num < 300) {
+    if (168 <= num && num <= 191) {
+      return('Ю');
+    }
+    if (191 < num && num <= 213) {
+      return('ЮЮЗ');
+    }
+    if (213 < num && num <= 236) {
+      return('ЮЗ');
+    }
+    if (236 < num && num < 258) {
+      return('ЗЮЗ');
+    }
+    if (258 <= num && num <= 281) {
       return('З');
     }
-    if (300 <= num && num < 330) {
-      return('З-С');
+    if (281 < num && num <= 303) {
+      return('ЗСЗ');
     }
-    if (330 <= num && num < 360) {
+    if (303 < num && num <= 326) {
+      return('СЗ');
+    }
+    if (326 < num && num < 348) {
+      return('ССЗ');
+    }
+    if (348 <= num && num <= 360) {
       return('С');
     }
   }
 
-function aM(gpa) {
-  const mmRtSt = gpa * 0.750064;
+function mRS(gpa) {
+  const mmRtSt = Math.round(gpa * 0.750064);
   return(mmRtSt);
 }
 
@@ -87,39 +111,75 @@ function sunS(date) {
   return (`${god.getHours()}:${god.getMinutes()}`)
 }
 
-function weatherDefinition(back_weather) {
-  switch (back_weather) {
-    case 'Clear':
-      return (
-        {background: `linear-gradient(170deg, rgb(252, 201, 24) 0%, #B6D5DD 40%, #D1FEFE 82%)`}
-      );
-      break;
-    case 'Clouds':
-      return (
-        {background: `linear-gradient(170deg, #e2e2e2 23%, #C2CCD1 59%, #B6C9DD 100%)`}
-      );
-      break;
-    case 'Drizzle' || 'Rain':
-      return (
-        {background: `linear-gradient(170deg, rgb(152, 231, 255) 0%, rgb(255, 255, 255) 40%, rgb(195, 241, 254) 80%)`}
-      );
-      break;
-      case 'Thunderstorm':
-      return (
-        //{background: `linear-gradient(170deg, #1A103B 8%, #1B1434 27%, #1D192B 49%, #1A1727 57%, #0F0F10 84%)`}
-        {background: `linear-gradient(170deg, #302E48 23%, #4B4A57 59%, #676767 100%)`}
-      );
-      break;
-    case 'Snow':
-      return (
-        {background: `linear-gradient(170deg, #FFFFFF 40%,rgb(165, 165, 165) 80%`}
-      );
-      break;
-    default:
-      return (
-        {background: `linear-gradient(170deg, #BCE7F4 5%, #82C8DD 17%, #F6AB79 37%, #818CD2 61%, #252F72 79%, #11194E 93%)`}
-      )
-      break;
+function weatherDefinition(back_weather, icon) {
+  if (icon == '01n' || icon == '02n.png' || icon == '03n.png' || icon == '04n.png' || icon == '09n.png' || icon == '10n.png' || icon == '11n.png' || icon == '13n.png' || icon == '50n.png') {
+    switch (back_weather) {
+      case 'Clear':
+        return (
+          {background: `linear-gradient(170deg, rgba(10, 0, 65, 0.73) 0%,rgba(0, 5, 73, 0.73) 40%,rgba(6, 0, 56, 0.6) 82%)`}
+        );
+        break;
+      case 'Clouds':
+        return (
+          {background: `linear-gradient(170deg, rgba(10, 0, 65, 0.73) 0%,rgba(0, 5, 73, 0.73) 40%,rgba(6, 0, 56, 0.6) 82%)`}
+        );
+        break;
+      case 'Drizzle' || 'Rain':
+        return (
+          {background: `linear-gradient(170deg, rgba(10, 0, 65, 0.73) 0%,rgba(0, 5, 73, 0.73) 40%,rgba(6, 0, 56, 0.6) 82%)`}
+        );
+        break;
+        case 'Thunderstorm':
+        return (
+          //{background: `linear-gradient(170deg, #1A103B 8%, #1B1434 27%, #1D192B 49%, #1A1727 57%, #0F0F10 84%)`}
+          {background: `linear-gradient(170deg, rgba(10, 0, 65, 0.73) 0%,rgba(0, 5, 73, 0.73) 40%,rgba(6, 0, 56, 0.6) 82%)`}
+        );
+        break;
+      case 'Snow':
+        return (
+          {background: `linear-gradient(170deg, rgba(10, 0, 65, 0.73) 0%,rgba(0, 5, 73, 0.73) 40%,rgba(6, 0, 56, 0.6) 82%)`}
+        );
+        break;
+      default:
+        return (
+          {background: `linear-gradient(170deg,rgb(96, 118, 124) 5%,rgb(63, 98, 109) 17%,rgb(102, 71, 50) 37%,rgb(70, 76, 114) 61%, #252F72 79%, #11194E 93%)`}
+        )
+        break;
+    }
+  }else {
+    switch (back_weather) {
+      case 'Clear':
+        return (
+          {background: `linear-gradient(170deg, rgb(252, 201, 24) 0%, #B6D5DD 40%, #D1FEFE 82%)`}
+        );
+        break;
+      case 'Clouds':
+        return (
+          {background: `linear-gradient(170deg, #e2e2e2 23%, #C2CCD1 59%, #B6C9DD 100%)`}
+        );
+        break;
+      case 'Drizzle' || 'Rain':
+        return (
+          {background: `linear-gradient(170deg, rgb(152, 231, 255) 0%, rgb(255, 255, 255) 40%, rgb(195, 241, 254) 80%)`}
+        );
+        break;
+        case 'Thunderstorm':
+        return (
+          //{background: `linear-gradient(170deg, #1A103B 8%, #1B1434 27%, #1D192B 49%, #1A1727 57%, #0F0F10 84%)`}
+          {background: `linear-gradient(170deg, #302E48 23%, #4B4A57 59%, #676767 100%)`}
+        );
+        break;
+      case 'Snow':
+        return (
+          {background: `linear-gradient(170deg, #FFFFFF 40%,rgb(165, 165, 165) 80%`}
+        );
+        break;
+      default:
+        return (
+          {background: `linear-gradient(170deg, #BCE7F4 5%, #82C8DD 17%, #F6AB79 37%, #818CD2 61%, #252F72 79%, #11194E 93%)`}
+        )
+        break;
+    }
   }
 }
 
@@ -135,21 +195,34 @@ function weatherDefinition(back_weather) {
             <p style={{fontSize: `1vw`}}>(Если длится слишком долго возможно у вас отключена геолокация)</p>
           </div>
         ) : (
-          <div style={weatherDefinition(weatherData.weather[0].main)}>
-            <div className="weater_container">
-              <div className="phone_border">
-                <div className="phone">
-                  <h1>Погода в <span style={{color: `white`, fontSize: `2vh`}}>г.</span>{city}</h1>
-                  <img style={{width: `5vh`}} src={`./react-weather/Img/${weatherData.weather[0].icon}.png`}/>
-                  <div className="topPhone">
-  <p>base '{weatherData.weather[0].main}'</p>
-  <p>Сама погода : '{String(weatherData.weather[0].description).charAt(0).toUpperCase() + String(weatherData.weather[0].description).slice(1)}'</p>
-                  </div>
-                  <div className="middlePhone">
+          <div>
+            <div style={weatherDefinition(weatherData.weather[0].main, weatherData.weather[0].icon)}>
+              <div className="weater_container">
+                <div className="phone_border">
+                  <div className="phone">
+                    <h1>Погода в <span style={{color: `white`, fontSize: `2vh`}}>г.</span>{city}</h1>
+                    <div className="topPhone">
+                      <h1>
+                        {String(weatherData.weather[0].description).charAt(0).toUpperCase() + String(weatherData.weather[0].description).slice(1)}
+                        <img style={{marginLeft: `1.5vh`}} src={`/react-weather/Img/${weatherData.weather[0].icon}.png`}/>
+                      </h1>
+                      <div className="temp">
+                        <p style={{fontWeight: '650'}}>{weatherData.main.temp} C&deg;</p>
+                        <p style={{textAlign: `end`}}>Ощущается как <span style={{color: 'white', fontWeight: '650'}}>&ensp;{weatherData.main.feels_like}&nbsp;</span> C&deg;</p>
+                      </div>
+                      <div className="info_1">
+                        <p>Облачность : {weatherData.clouds.all}%</p>
+                        <p>{mRS(weatherData.main.grnd_level)} мм рт.ст</p>
+                      </div>
+                      <div className="info_2">
+                        <p><img style={{marginRight: '1vh'}} src='/react-weather/Img/wind.png'/> {weatherData.wind.speed} м/с</p>
+                        <p>{windeg(weatherData.wind.deg)} <img style={{marginLeft: '1vh'}} src="/react-weather/Img/compass.png" /></p>
+                        <p>{weatherData.main.humidity} <img style={{marginLeft: `0.5vh`}} src={`/react-weather/Img/humidity.png`}/></p>
+                      </div>
+                    </div>
+                    <div className="footerPhone">
 
-                  </div>
-                  <div className="footerPhone">
-
+                    </div>
                   </div>
                 </div>
               </div>
@@ -164,19 +237,8 @@ function weatherDefinition(back_weather) {
 }
 
 /*
-  <p>Название города : '{city}'</p>
-  <p>Фактическая температура : '{weatherData.main.temp}'</p>
-  <p>Как ощущается '{weatherData.main.feels_like}'</p>
-  <p>base '{weatherData.weather[0].main}'</p>
-  <p>Сама погода : '{String(weatherData.weather[0].description).charAt(0).toUpperCase() + String(weatherData.weather[0].description).slice(1)}'</p>
-  <p>Облачность : '{weatherData.clouds.all}%'</p>
-  <p>Скорость ветра : '{weatherData.wind.speed}'</p>
-  <p>Направление : '{windeg(weatherData.wind.deg)}'</p>
-  <p>Атмосферное давление : '{aM(weatherData.main.grnd_level)} мм рт.ст'</p>
-  <p>Влажность : '{weatherData.main.humidity}%'</p>
   <p>Время восхода солнца : {sunR(weatherData.sys.sunrise)}</p>
   <p>Время захода солнца : {sunS(weatherData.sys.sunset)}</p>
-  <p>иконка : {weatherData.weather[0].icon}</p>
 */
 
 //<p style={{position: `fixed`, top: `2.5%`, left: `0`}}>Широта : '{lat}'</p>
