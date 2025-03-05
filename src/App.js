@@ -30,8 +30,10 @@ function App() {
       const posw = await pos.json();
       setCity(posw[0].local_names.ru);
 
-      const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?&lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}&lang=ru`);
+      const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric&lang=ru&cnt=40`);
       const data = await response.json();
+
+      console.log(data);
 
       setWeatherData(data);
     } catch (error) {
@@ -158,7 +160,11 @@ function weatherDefinition(back_weather, icon) {
           {background: `linear-gradient(170deg, #e2e2e2 23%, #C2CCD1 59%, #B6C9DD 100%)`}
         );
         break;
-      case 'Drizzle' || 'Rain':
+      case 'Drizzle':
+        return (
+          {background: `linear-gradient(170deg, rgb(152, 231, 255) 0%, rgb(255, 255, 255) 40%, rgb(195, 241, 254) 80%)`}
+        );
+      case 'Rain':
         return (
           {background: `linear-gradient(170deg, rgb(152, 231, 255) 0%, rgb(255, 255, 255) 40%, rgb(195, 241, 254) 80%)`}
         );
@@ -196,32 +202,75 @@ function weatherDefinition(back_weather, icon) {
           </div>
         ) : (
           <div>
-            <div style={weatherDefinition(weatherData.weather[0].main, weatherData.weather[0].icon)}>
+            <div style={weatherDefinition(weatherData.list[0].weather[0].main, weatherData.list[0].weather[0].icon)}>
               <div className="weater_container">
                 <div className="phone_border">
                   <div className="phone">
                     <h1>Погода в <span style={{color: `white`, fontSize: `2vh`}}>г.</span>{city}</h1>
                     <div className="topPhone">
                       <h1>
-                        {String(weatherData.weather[0].description).charAt(0).toUpperCase() + String(weatherData.weather[0].description).slice(1)}
-                        <img style={{marginLeft: `1.5vh`}} src={`/react-weather/Img/${weatherData.weather[0].icon}.png`}/>
+                        {String(weatherData.list[0].weather[0].description).charAt(0).toUpperCase() + String(weatherData.list[0].weather[0].description).slice(1)}
+                        <img style={{marginLeft: `1.5vh`}} src={`/react-weather/Img/${weatherData.list[0].weather[0].icon}.png`}/>
                       </h1>
                       <div className="temp">
-                        <p style={{fontWeight: '650'}}>{weatherData.main.temp} C&deg;</p>
-                        <p style={{textAlign: `end`}}>Ощущается как <span style={{color: 'white', fontWeight: '650'}}>&ensp;{weatherData.main.feels_like}&nbsp;</span> C&deg;</p>
+                        <p style={{fontWeight: '650'}}>{weatherData.list[0].main.temp} C&deg;</p>
+                        <p style={{textAlign: `end`}}>Ощущается как <span style={{color: 'white', fontWeight: '650'}}>&ensp;{weatherData.list[0].main.feels_like}&nbsp;</span> C&deg;</p>
                       </div>
                       <div className="info_1">
-                        <p>Облачность : {weatherData.clouds.all}%</p>
-                        <p>{mRS(weatherData.main.grnd_level)} мм рт.ст</p>
+                        <p>Облачность : {weatherData.list[0].clouds.all}%</p>
+                        <p>{mRS(weatherData.list[0].main.grnd_level)} мм рт.ст</p>
                       </div>
                       <div className="info_2">
-                        <p><img style={{marginRight: '1vh'}} src='/react-weather/Img/wind.png'/> {weatherData.wind.speed} м/с</p>
-                        <p>{windeg(weatherData.wind.deg)} <img style={{marginLeft: '1vh'}} src="/react-weather/Img/compass.png" /></p>
-                        <p>{weatherData.main.humidity} <img style={{marginLeft: `0.5vh`}} src={`/react-weather/Img/humidity.png`}/></p>
+                        <p><img style={{marginRight: '1vh'}} src='/react-weather/Img/wind.png'/> {weatherData.list[0].wind.speed} м/с</p>
+                        <p>{windeg(weatherData.list[0].wind.deg)} <img style={{marginLeft: '1vh'}} src="/react-weather/Img/compass.png" /></p>
+                        <p>{weatherData.list[0].main.humidity} <img style={{marginLeft: `0.5vh`}} src={`/react-weather/Img/humidity.png`}/></p>
                       </div>
                     </div>
                     <div className="footerPhone">
-
+                      <div className="weatherday">
+                        <div className="h1">
+                          <h1>Завтра</h1>
+                          <h1>
+                            {String(weatherData.list[1].weather[0].description).charAt(0).toUpperCase() + String(weatherData.list[1].weather[0].description).slice(1)}
+                            <img style={{marginLeft: `1.5vh`}} src={`/react-weather/Img/${weatherData.list[1].weather[0].icon}.png`}/>
+                          </h1>
+                        </div>
+                        <div className="temp">
+                          <p style={{fontWeight: '650'}}>{weatherData.list[1].main.temp} C&deg;</p>
+                          <p style={{textAlign: `end`}}>Ощущается как <span style={{color: 'white', fontWeight: '650'}}>&ensp;{weatherData.list[1].main.feels_like}&nbsp;</span> C&deg;</p>
+                        </div>
+                        <div className="info_1">
+                          <p>Облачность : {weatherData.list[1].clouds.all}%</p>
+                          <p>{mRS(weatherData.list[1].main.grnd_level)} мм рт.ст</p>
+                        </div>
+                        <div className="info_2">
+                          <p><img style={{marginRight: '1vh'}} src='/react-weather/Img/wind.png'/> {weatherData.list[1].wind.speed} м/с</p>
+                          <p>{windeg(weatherData.list[1].wind.deg)} <img style={{marginLeft: '1vh'}} src="/react-weather/Img/compass.png" /></p>
+                          <p>{weatherData.list[1].main.humidity} <img style={{marginLeft: `0.5vh`}} src={`/react-weather/Img/humidity.png`}/></p>
+                        </div>
+                      </div>
+                      <div className="weatherday">
+                        <div className="h1">
+                          <h1>Послезавтра</h1>
+                          <h1>
+                            {String(weatherData.list[2].weather[0].description).charAt(0).toUpperCase() + String(weatherData.list[2].weather[0].description).slice(1)}
+                            <img style={{marginLeft: `1.5vh`}} src={`/react-weather/Img/${weatherData.list[2].weather[0].icon}.png`}/>
+                          </h1>
+                        </div>
+                        <div className="temp">
+                          <p style={{fontWeight: '650'}}>{weatherData.list[2].main.temp} C&deg;</p>
+                          <p style={{textAlign: `end`}}>Ощущается как <span style={{color: 'white', fontWeight: '650'}}>&ensp;{weatherData.list[2].main.feels_like}&nbsp;</span> C&deg;</p>
+                        </div>
+                        <div className="info_1">
+                          <p>Облачность : {weatherData.list[2].clouds.all}%</p>
+                          <p>{mRS(weatherData.list[2].main.grnd_level)} мм рт.ст</p>
+                        </div>
+                        <div className="info_2">
+                          <p><img style={{marginRight: '1vh'}} src='/react-weather/Img/wind.png'/> {weatherData.list[2].wind.speed} м/с</p>
+                          <p>{windeg(weatherData.list[2].wind.deg)} <img style={{marginLeft: '1vh'}} src="/react-weather/Img/compass.png" /></p>
+                          <p>{weatherData.list[2].main.humidity} <img style={{marginLeft: `0.5vh`}} src={`/react-weather/Img/humidity.png`}/></p>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
