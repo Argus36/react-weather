@@ -270,8 +270,8 @@ const TOTD = 2;//times of the day
             flexDirection: `column`,
             alignItems: `center`,
             justifyContent: `center`}} className="weater_container">
-            <p style={{fontSize: `6vh`}}>Загрузка ...</p>
-            <p style={{fontSize: `2vh`}}>(Если длится слишком долго возможно у вас отключена геолокация)</p>
+            <p style={{fontSize: `3vh`}}>Загрузка ...</p>
+            <p style={{fontSize: `1.5vh`, fontWeight: `600`}}>(Если длится слишком долго возможно у вас отключена геолокация)</p>
           </div>
         ) : (
           <div>
@@ -305,7 +305,7 @@ const TOTD = 2;//times of the day
 
                     <div className="weatherday">
                       <div className="top">
-                        <h1>{mounth(`${Number(weatherData.list[2].dt_txt.slice(8, -8)) + 1}`, `${weatherData.list[2].dt_txt.slice(5, -12)}`)}</h1>
+                        <h1>{mounth(`${weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`)].dt_txt.slice(8, -8)}`, `${weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`)].dt_txt.slice(5, -12)}`)}</h1>
                         <h2>Давление,<br/>
                           мм рт. ст.
                         </h2>
@@ -318,6 +318,7 @@ const TOTD = 2;//times of the day
                           <h2>Утром</h2>
                           <h1>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 2].main.temp}C&deg;</h1>
                         </div>
+                        <img src={`/react-weather/Img/${weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 2].weather[0].icon}.png`}/>
                         <h2>{mRS(weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 2].main.grnd_level)}</h2>
                         <h2>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 2].main.humidity}%</h2>
                         <h2>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 2].wind.speed} {windeg(weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 2].wind.deg)}</h2>
@@ -328,6 +329,7 @@ const TOTD = 2;//times of the day
                           <h2>Днём</h2>
                           <h1>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 4].main.temp}C&deg;</h1>
                         </div>
+                        <img src={`/react-weather/Img/${weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 4].weather[0].icon}.png`}/>
                         <h2>{mRS(weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 4].main.grnd_level)}</h2>
                         <h2>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 4].main.humidity}%</h2>
                         <h2>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 4].wind.speed} {windeg(weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 4].wind.deg)}</h2>
@@ -338,6 +340,7 @@ const TOTD = 2;//times of the day
                           <h2>Вечером</h2>
                           <h1>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 6].main.temp}C&deg;</h1>
                         </div>
+                        <img src={`/react-weather/Img/${weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 6].weather[0].icon}.png`}/>
                         <h2>{mRS(weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 6].main.grnd_level)}</h2>
                         <h2>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 6].main.humidity}%</h2>
                         <h2>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 6].wind.speed} {windeg(weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 6].wind.deg)}</h2>
@@ -348,6 +351,7 @@ const TOTD = 2;//times of the day
                           <h2>Ночью</h2>
                           <h1>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 8].main.temp}C&deg;</h1>
                         </div>
+                        <img src={`/react-weather/Img/${weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 8].weather[0].icon}.png`}/>
                         <h2>{mRS(weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 8].main.grnd_level)}</h2>
                         <h2>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 8].main.humidity}%</h2>
                         <h2>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 8].wind.speed} {windeg(weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 8].wind.deg)}</h2>
@@ -357,7 +361,7 @@ const TOTD = 2;//times of the day
 
                     <div className="weatherday">
                       <div className="top">
-                        <h1>{mounth(`${Number(weatherData.list[2].dt_txt.slice(8, -8)) + 2}`, `${weatherData.list[2].dt_txt.slice(5, -12)}`)}</h1>
+                        <h1>{mounth(`${weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 8].dt_txt.slice(8, -8)}`, `${weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 8].dt_txt.slice(5, -12)}`)}</h1>
                         <h2>Давление,<br/>
                           мм рт. ст.
                         </h2>
@@ -370,6 +374,7 @@ const TOTD = 2;//times of the day
                           <h2>Утром</h2>
                           <h1>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + (2 + 8)].main.temp}C&deg;</h1>
                         </div>
+                        <img src={`/react-weather/Img/${weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + (2 + 8)].weather[0].icon}.png`}/>
                         <h2>{mRS(weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + (2 + 8)].main.grnd_level)}</h2>
                         <h2>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + (2 + 8)].main.humidity}%</h2>
                         <h2>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + (2 + 8)].wind.speed} {windeg(weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + (2 + 8)].wind.deg)}</h2>
@@ -380,6 +385,7 @@ const TOTD = 2;//times of the day
                           <h2>Днём</h2>
                           <h1>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + (4 + 8)].main.temp}C&deg;</h1>
                         </div>
+                        <img src={`/react-weather/Img/${weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + (4 + 8)].weather[0].icon}.png`}/>
                         <h2>{mRS(weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + (4 + 8)].main.grnd_level)}</h2>
                         <h2>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + (4 + 8)].main.humidity}%</h2>
                         <h2>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + (4 + 8)].wind.speed} {windeg(weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + (4 + 8)].wind.deg)}</h2>
@@ -390,6 +396,7 @@ const TOTD = 2;//times of the day
                           <h2>Вечером</h2>
                           <h1>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + (6 + 8)].main.temp}C&deg;</h1>
                         </div>
+                        <img src={`/react-weather/Img/${weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + (6 + 8)].weather[0].icon}.png`}/>
                         <h2>{mRS(weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + (6 + 8)].main.grnd_level)}</h2>
                         <h2>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + (6 + 8)].main.humidity}%</h2>
                         <h2>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + (6 + 8)].wind.speed} {windeg(weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + (6 + 8)].wind.deg)}</h2>
@@ -400,6 +407,7 @@ const TOTD = 2;//times of the day
                           <h2>Ночью</h2>
                           <h1>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + (8 + 8)].main.temp}C&deg;</h1>
                         </div>
+                        <img src={`/react-weather/Img/${weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + (8 + 8)].weather[0].icon}.png`}/>
                         <h2>{mRS(weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + (8 + 8)].main.grnd_level)}</h2>
                         <h2>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + (8 + 8)].main.humidity}%</h2>
                         <h2>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + (8 + 8)].wind.speed} {windeg(weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + (8 + 8)].wind.deg)}</h2>
@@ -407,19 +415,117 @@ const TOTD = 2;//times of the day
                       </div>
                     </div>
 
+                    <div className="weatherday">
+                      <div className="top">
+                        <h1>{mounth(`${weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + (8 * 2)].dt_txt.slice(8, -8)}`, `${weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + (8 * 2)].dt_txt.slice(5, -12)}`)}</h1>
+                        <h2>Давление,<br/>
+                          мм рт. ст.
+                        </h2>
+                        <h2>Влажность</h2>
+                        <h2>Ветер, м/с</h2>
+                        <h2>Ощущается как</h2>
+                      </div>
+                      <div className="morning container">
+                        <div>
+                          <h2>Утром</h2>
+                          <h1>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 2 + (8 * 2)].main.temp}C&deg;</h1>
+                        </div>
+                        <img src={`/react-weather/Img/${weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 2 + (8 * 2)].weather[0].icon}.png`}/>
+                        <h2>{mRS(weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 2 + (8 * 2)].main.grnd_level)}</h2>
+                        <h2>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 2 + (8 * 2)].main.humidity}%</h2>
+                        <h2>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 2 + (8 * 2)].wind.speed} {windeg(weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + (2 + 8)].wind.deg)}</h2>
+                        <h2>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 2 + (8 * 2)].main.feels_like}C&deg;</h2>
+                      </div>
+                      <div className="afternoon container">
+                        <div>
+                          <h2>Днём</h2>
+                          <h1>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 4 + (8 * 2)].main.temp}C&deg;</h1>
+                        </div>
+                        <img src={`/react-weather/Img/${weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 4 + (8 * 2)].weather[0].icon}.png`}/>
+                        <h2>{mRS(weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 4 + (8 * 2)].main.grnd_level)}</h2>
+                        <h2>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 4 + (8 * 2)].main.humidity}%</h2>
+                        <h2>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 4 + (8 * 2)].wind.speed} {windeg(weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + (4 + 8)].wind.deg)}</h2>
+                        <h2>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 4 + (8 * 2)].main.feels_like}C&deg;</h2>
+                      </div>
+                      <div className="evening container">
+                        <div>
+                          <h2>Вечером</h2>
+                          <h1>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 6 + (8 * 2)].main.temp}C&deg;</h1>
+                        </div>
+                        <img src={`/react-weather/Img/${weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 6 + (8 * 2)].weather[0].icon}.png`}/>
+                        <h2>{mRS(weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 6 + (8 * 2)].main.grnd_level)}</h2>
+                        <h2>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 6 + (8 * 2)].main.humidity}%</h2>
+                        <h2>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 6 + (8 * 2)].wind.speed} {windeg(weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + (6 + 8)].wind.deg)}</h2>
+                        <h2>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 6 + (8 * 2)].main.feels_like}C&deg;</h2>
+                      </div>
+                      <div className="night container">
+                        <div>
+                          <h2>Ночью</h2>
+                          <h1>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 8 + (8 * 2)].main.temp}C&deg;</h1>
+                        </div>
+                        <img src={`/react-weather/Img/${weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 8 + (8 * 2)].weather[0].icon}.png`}/>
+                        <h2>{mRS(weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 8 + (8 * 2)].main.grnd_level)}</h2>
+                        <h2>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 8 + (8 * 2)].main.humidity}%</h2>
+                        <h2>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 8 + (8 * 2)].wind.speed} {windeg(weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + (8 + 8)].wind.deg)}</h2>
+                        <h2>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 8 + (8 * 2)].main.feels_like}C&deg;</h2>
+                      </div>
+                    </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
+                    <div className="weatherday">
+                      <div className="top">
+                        <h1>{mounth(`${weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + (8 * 3)].dt_txt.slice(8, -8)}`, `${weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + (8 * 3)].dt_txt.slice(5, -12)}`)}</h1>
+                        <h2>Давление,<br/>
+                          мм рт. ст.
+                        </h2>
+                        <h2>Влажность</h2>
+                        <h2>Ветер, м/с</h2>
+                        <h2>Ощущается как</h2>
+                      </div>
+                      <div className="morning container">
+                        <div>
+                          <h2>Утром</h2>
+                          <h1>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 2 + (8 * 3)].main.temp}C&deg;</h1>
+                        </div>
+                        <img src={`/react-weather/Img/${weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 2 + (8 * 3)].weather[0].icon}.png`}/>
+                        <h2>{mRS(weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 2 + (8 * 3)].main.grnd_level)}</h2>
+                        <h2>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 2 + (8 * 3)].main.humidity}%</h2>
+                        <h2>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 2 + (8 * 3)].wind.speed} {windeg(weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + (2 + 8)].wind.deg)}</h2>
+                        <h2>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 2 + (8 * 3)].main.feels_like}C&deg;</h2>
+                      </div>
+                      <div className="afternoon container">
+                        <div>
+                          <h2>Днём</h2>
+                          <h1>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 4 + (8 * 3)].main.temp}C&deg;</h1>
+                        </div>
+                        <img src={`/react-weather/Img/${weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 4 + (8 * 3)].weather[0].icon}.png`}/>
+                        <h2>{mRS(weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 4 + (8 * 3)].main.grnd_level)}</h2>
+                        <h2>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 4 + (8 * 3)].main.humidity}%</h2>
+                        <h2>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 4 + (8 * 3)].wind.speed} {windeg(weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + (4 + 8)].wind.deg)}</h2>
+                        <h2>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 4 + (8 * 3)].main.feels_like}C&deg;</h2>
+                      </div>
+                      <div className="evening container">
+                        <div>
+                          <h2>Вечером</h2>
+                          <h1>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 6 + (8 * 3)].main.temp}C&deg;</h1>
+                        </div>
+                        <img src={`/react-weather/Img/${weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 6 + (8 * 3)].weather[0].icon}.png`}/>
+                        <h2>{mRS(weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 6 + (8 * 3)].main.grnd_level)}</h2>
+                        <h2>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 6 + (8 * 3)].main.humidity}%</h2>
+                        <h2>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 6 + (8 * 3)].wind.speed} {windeg(weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + (6 + 8)].wind.deg)}</h2>
+                        <h2>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 6 + (8 * 3)].main.feels_like}C&deg;</h2>
+                      </div>
+                      <div className="night container">
+                        <div>
+                          <h2>Ночью</h2>
+                          <h1>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 8 + (8 * 3)].main.temp}C&deg;</h1>
+                        </div>
+                        <img src={`/react-weather/Img/${weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 8 + (8 * 3)].weather[0].icon}.png`}/>
+                        <h2>{mRS(weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 8 + (8 * 3)].main.grnd_level)}</h2>
+                        <h2>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 8 + (8 * 3)].main.humidity}%</h2>
+                        <h2>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 8 + (8 * 3)].wind.speed} {windeg(weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + (8 + 8)].wind.deg)}</h2>
+                        <h2>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 8 + (8 * 3)].main.feels_like}C&deg;</h2>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
