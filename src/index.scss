@@ -77,27 +77,22 @@ code {
           height: 25vh;
           background: linear-gradient(175deg, #82C8DD 40%, rgb(226, 226, 226) 90%);
           border-radius: 25px;
-          padding: 1vh 2vh;
+          padding: 1vh 1.75vh;
           margin: 2vh 0 1.5vh 0;
 
-
-          .h1 {
+          .top {
             display: flex;
             align-items: center;
             justify-content: space-between;
 
-            h1{
+            h1 {
               display: flex;
               align-items: center;
-              font-size: 3vh;
+              font-size: 2.8vh;
+              color: white;
             }
           }
 
-          h1{
-            display: flex;
-            align-items: center;
-            font-size: 3vh;
-          }
 
           img {
             height: 3.5vh;
@@ -130,13 +125,62 @@ code {
           }
         }
         .weatherday {
+          height: 30vh;
           margin: 1.5vh 0;
+          display: flex;
+          flex-direction: column;
+          padding: 1vh 1vh;
 
-          .h1 {
-            h1{
-              font-size: 2.5vh;
+          .top {
+            margin: 0.5vh 0;
+
+            h1 {
+              display: flex;
+              font-size: 2.25vh;
+            }
+
+            h2 {
+              display: flex;
+              font-size: 1.25vh;
+              width: max-content;
+              color: white;
             }
           }
+
+          .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 0.5vh 0;
+
+            h1 {
+              font-size: 2vh;
+            }
+
+            h2{
+              display: flex;
+              font-size: 1.75vh;
+              width: max-content;
+              color: white;
+            }
+
+            div {
+              display: flex;
+              flex-direction: column;
+              width: 10vh;
+
+              h2{
+                color: rgba(255, 255, 255, 0.85);
+              }
+
+            }
+
+          }
+
+          .morning {
+            display: flex;
+          }
+
         }
       }
       .phone::-webkit-scrollbar {
@@ -164,12 +208,21 @@ code {
     .weater_container {
       .phone_border {
         .phone {
-          .topPhone, .footerPhone .weatherday {
+          .topPhone, .weatherday {
             height: 20vh;
             margin: 1.5vh 0 1.5vh 0;
 
-            h1{
-              font-size: 2.8vh;
+            .top {
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+
+              h1 {
+                display: flex;
+                align-items: center;
+                font-size: 1.75vh;
+                color: white;
+              }
             }
 
             .temp, .info_1, .info_2 {
@@ -180,16 +233,27 @@ code {
               }
             }
           }
-          .footerPhone {
-            .weatherday {
-              .h1{
+          .weatherday {
+            .top {
+              h1 {
                 display: flex;
-
-                h1{
-                  align-items: center;
-                  font-size: 2vh;
-                }
               }
+
+              h2 {
+                display: none;
+                font-size: 1vh;
+                width: max-content;
+                color: white;
+              }
+            }
+
+            .container {
+
+              h1 {
+                font-size: 2vh;
+                width: 12.5vh;
+              }
+
             }
           }
         }

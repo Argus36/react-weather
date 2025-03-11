@@ -1,3 +1,5 @@
+I'll say right away that I don't know English very well.
+And I also want to say that I'm VERY sorry that I'm a lazy ass and didn't want to remake `<className = "weatherday">` for components and basically just copy-pasted, albeit using functions `(`
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

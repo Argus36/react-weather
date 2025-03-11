@@ -69,7 +69,7 @@ function App() {
       return('ЮЮВ');
     }
     if (168 <= num && num <= 191) {
-      return('Ю');
+      return('ЮГ');
     }
     if (191 < num && num <= 213) {
       return('ЮЮЗ');
@@ -191,6 +191,77 @@ function weatherDefinition(back_weather, icon) {
   }
 }
 
+function mounth(day ,mounth) {
+  switch (mounth) {
+    case '01':
+      return (`${day} Января`)
+      break;
+
+    case '02':
+      return (`${day} Февраля`)
+      break;
+
+    case '03':
+      return (`${day} Марта`)
+      break;
+
+    case '04':
+      return (`${day} Апреля`)
+      break;
+
+    case '05':
+      return (`${day} Мая`)
+      break;
+
+    case '06':
+      return (`${day} Июня`)
+      break;
+
+    case '07':
+      return (`${day} Июля`)
+      break;
+
+    case '08':
+      return (`${day} Августа`)
+      break;
+
+    case '09':
+      return (`${day} Сентября`)
+      break;
+
+    case '10':
+      return (`${day} Октября`)
+      break;
+
+    case '11':
+      return (`${day} Ноября`)
+      break;
+
+    case '12':
+      return (`${day} Декабря`)
+      break;
+
+    default:
+      return (`${mounth}`)
+      break;
+  }
+}
+
+function DayS(onedays) {
+  let oneDays = Number(onedays);
+  if (oneDays === 0) {
+    let twoDays = 8;
+    return twoDays;
+  }else {
+    let twoDays = Number(8 - (oneDays / 3));
+    return twoDays;
+  }
+}
+
+const day = 8;
+const TOTD = 2;//times of the day
+
+
   return (
     <div className="App">
         {!weatherData ? (
@@ -210,10 +281,13 @@ function weatherDefinition(back_weather, icon) {
                   <div className="phone">
                     <h1>Погода в <span style={{color: `white`, fontSize: `2vh`}}>г.</span>{city}</h1>
                     <div className="topPhone">
-                      <h1>
-                        {String(weatherData.list[0].weather[0].description).charAt(0).toUpperCase() + String(weatherData.list[0].weather[0].description).slice(1)}
-                        <img style={{marginLeft: `1.5vh`}} src={`/react-weather/Img/${weatherData.list[0].weather[0].icon}.png`}/>
-                      </h1>
+                      <div className="top">
+                        <h1 style={{fontSize: '2.25vh'}}>Сегодня</h1>
+                        <h1>
+                          {String(weatherData.list[0].weather[0].description).charAt(0).toUpperCase() + String(weatherData.list[0].weather[0].description).slice(1)}
+                          <img style={{marginLeft: `1vh`}} src={`/react-weather/Img/${weatherData.list[0].weather[0].icon}.png`}/>
+                        </h1>
+                      </div>
                       <div className="temp">
                         <p style={{fontWeight: '650'}}>{weatherData.list[0].main.temp} C&deg;</p>
                         <p style={{textAlign: `end`}}>Ощущается как <span style={{color: 'white', fontWeight: '650'}}>&ensp;{weatherData.list[0].main.feels_like}&nbsp;</span> C&deg;</p>
@@ -230,181 +304,122 @@ function weatherDefinition(back_weather, icon) {
                     </div>
 
                     <div className="weatherday">
-                      <div className="h1">
-                        <h1>{weatherData.list[1].dt_txt.slice(5, -3)}</h1>
-                        <h1>
-                          {String(weatherData.list[1].weather[0].description).charAt(0).toUpperCase() + String(weatherData.list[1].weather[0].description).slice(1)}
-                          <img style={{marginLeft: `0.5vh`}} src={`/react-weather/Img/${weatherData.list[1].weather[0].icon}.png`}/>
-                        </h1>
+                      <div className="top">
+                        <h1>{mounth(`${Number(weatherData.list[2].dt_txt.slice(8, -8)) + 1}`, `${weatherData.list[2].dt_txt.slice(5, -12)}`)}</h1>
+                        <h2>Давление,<br/>
+                          мм рт. ст.
+                        </h2>
+                        <h2>Влажность</h2>
+                        <h2>Ветер, м/с</h2>
+                        <h2>Ощущается как</h2>
                       </div>
-                      <div className="temp">
-                        <p style={{fontWeight: '650'}}>{weatherData.list[1].main.temp} C&deg;</p>
-                        <p style={{textAlign: `end`}}>Ощущается как <span style={{color: 'white', fontWeight: '650'}}>&ensp;{weatherData.list[1].main.feels_like}&nbsp;</span> C&deg;</p>
+                      <div className="morning container">
+                        <div>
+                          <h2>Утром</h2>
+                          <h1>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 2].main.temp}C&deg;</h1>
+                        </div>
+                        <h2>{mRS(weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 2].main.grnd_level)}</h2>
+                        <h2>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 2].main.humidity}%</h2>
+                        <h2>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 2].wind.speed} {windeg(weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 2].wind.deg)}</h2>
+                        <h2>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 2].main.feels_like}C&deg;</h2>
                       </div>
-                      <div className="info_1">
-                        <p>Облачность : {weatherData.list[1].clouds.all}%</p>
-                        <p>{mRS(weatherData.list[1].main.grnd_level)} мм рт.ст</p>
+                      <div className="afternoon container">
+                        <div>
+                          <h2>Днём</h2>
+                          <h1>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 4].main.temp}C&deg;</h1>
+                        </div>
+                        <h2>{mRS(weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 4].main.grnd_level)}</h2>
+                        <h2>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 4].main.humidity}%</h2>
+                        <h2>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 4].wind.speed} {windeg(weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 4].wind.deg)}</h2>
+                        <h2>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 4].main.feels_like}C&deg;</h2>
                       </div>
-                      <div className="info_2">
-                        <p><img style={{marginRight: '1vh'}} src='/react-weather/Img/wind.png'/> {weatherData.list[1].wind.speed} м/с</p>
-                        <p>{windeg(weatherData.list[1].wind.deg)} <img style={{marginLeft: '1vh'}} src="/react-weather/Img/compass.png" /></p>
-                        <p>{weatherData.list[1].main.humidity} <img style={{marginLeft: `0.5vh`}} src={`/react-weather/Img/humidity.png`}/></p>
+                      <div className="evening container">
+                        <div>
+                          <h2>Вечером</h2>
+                          <h1>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 6].main.temp}C&deg;</h1>
+                        </div>
+                        <h2>{mRS(weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 6].main.grnd_level)}</h2>
+                        <h2>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 6].main.humidity}%</h2>
+                        <h2>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 6].wind.speed} {windeg(weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 6].wind.deg)}</h2>
+                        <h2>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 6].main.feels_like}C&deg;</h2>
+                      </div>
+                      <div className="night container">
+                        <div>
+                          <h2>Ночью</h2>
+                          <h1>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 8].main.temp}C&deg;</h1>
+                        </div>
+                        <h2>{mRS(weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 8].main.grnd_level)}</h2>
+                        <h2>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 8].main.humidity}%</h2>
+                        <h2>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 8].wind.speed} {windeg(weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 8].wind.deg)}</h2>
+                        <h2>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + 8].main.feels_like}C&deg;</h2>
                       </div>
                     </div>
+
                     <div className="weatherday">
-                      <div className="h1">
-                        <h1>{weatherData.list[2].dt_txt.slice(5, -3)}</h1>
-                        <h1>
-                          {String(weatherData.list[2].weather[0].description).charAt(0).toUpperCase() + String(weatherData.list[2].weather[0].description).slice(1)}
-                          <img style={{marginLeft: `0.5vh`}} src={`/react-weather/Img/${weatherData.list[2].weather[0].icon}.png`}/>
-                        </h1>
+                      <div className="top">
+                        <h1>{mounth(`${Number(weatherData.list[2].dt_txt.slice(8, -8)) + 2}`, `${weatherData.list[2].dt_txt.slice(5, -12)}`)}</h1>
+                        <h2>Давление,<br/>
+                          мм рт. ст.
+                        </h2>
+                        <h2>Влажность</h2>
+                        <h2>Ветер, м/с</h2>
+                        <h2>Ощущается как</h2>
                       </div>
-                      <div className="temp">
-                        <p style={{fontWeight: '650'}}>{weatherData.list[2].main.temp} C&deg;</p>
-                        <p style={{textAlign: `end`}}>Ощущается как <span style={{color: 'white', fontWeight: '650'}}>&ensp;{weatherData.list[2].main.feels_like}&nbsp;</span> C&deg;</p>
+                      <div className="morning container">
+                        <div>
+                          <h2>Утром</h2>
+                          <h1>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + (2 + 8)].main.temp}C&deg;</h1>
+                        </div>
+                        <h2>{mRS(weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + (2 + 8)].main.grnd_level)}</h2>
+                        <h2>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + (2 + 8)].main.humidity}%</h2>
+                        <h2>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + (2 + 8)].wind.speed} {windeg(weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + (2 + 8)].wind.deg)}</h2>
+                        <h2>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + (2 + 8)].main.feels_like}C&deg;</h2>
                       </div>
-                      <div className="info_1">
-                        <p>Облачность : {weatherData.list[2].clouds.all}%</p>
-                        <p>{mRS(weatherData.list[2].main.grnd_level)} мм рт.ст</p>
+                      <div className="afternoon container">
+                        <div>
+                          <h2>Днём</h2>
+                          <h1>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + (4 + 8)].main.temp}C&deg;</h1>
+                        </div>
+                        <h2>{mRS(weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + (4 + 8)].main.grnd_level)}</h2>
+                        <h2>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + (4 + 8)].main.humidity}%</h2>
+                        <h2>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + (4 + 8)].wind.speed} {windeg(weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + (4 + 8)].wind.deg)}</h2>
+                        <h2>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + (4 + 8)].main.feels_like}C&deg;</h2>
                       </div>
-                      <div className="info_2">
-                        <p><img style={{marginRight: '1vh'}} src='/react-weather/Img/wind.png'/> {weatherData.list[2].wind.speed} м/с</p>
-                        <p>{windeg(weatherData.list[2].wind.deg)} <img style={{marginLeft: '1vh'}} src="/react-weather/Img/compass.png" /></p>
-                        <p>{weatherData.list[2].main.humidity} <img style={{marginLeft: `0.5vh`}} src={`/react-weather/Img/humidity.png`}/></p>
+                      <div className="evening container">
+                        <div>
+                          <h2>Вечером</h2>
+                          <h1>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + (6 + 8)].main.temp}C&deg;</h1>
+                        </div>
+                        <h2>{mRS(weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + (6 + 8)].main.grnd_level)}</h2>
+                        <h2>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + (6 + 8)].main.humidity}%</h2>
+                        <h2>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + (6 + 8)].wind.speed} {windeg(weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + (6 + 8)].wind.deg)}</h2>
+                        <h2>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + (6 + 8)].main.feels_like}C&deg;</h2>
                       </div>
-                    </div>
-                    <div className="weatherday">
-                      <div className="h1">
-                        <h1>{weatherData.list[3].dt_txt.slice(5, -3)}</h1>
-                        <h1>
-                          {String(weatherData.list[3].weather[0].description).charAt(0).toUpperCase() + String(weatherData.list[3].weather[0].description).slice(1)}
-                          <img style={{marginLeft: `0.5vh`}} src={`/react-weather/Img/${weatherData.list[3].weather[0].icon}.png`}/>
-                        </h1>
-                      </div>
-                      <div className="temp">
-                        <p style={{fontWeight: '650'}}>{weatherData.list[3].main.temp} C&deg;</p>
-                        <p style={{textAlign: `end`}}>Ощущается как <span style={{color: 'white', fontWeight: '650'}}>&ensp;{weatherData.list[3].main.feels_like}&nbsp;</span> C&deg;</p>
-                      </div>
-                      <div className="info_1">
-                        <p>Облачность : {weatherData.list[3].clouds.all}%</p>
-                        <p>{mRS(weatherData.list[3].main.grnd_level)} мм рт.ст</p>
-                      </div>
-                      <div className="info_2">
-                        <p><img style={{marginRight: '1vh'}} src='/react-weather/Img/wind.png'/> {weatherData.list[3].wind.speed} м/с</p>
-                        <p>{windeg(weatherData.list[3].wind.deg)} <img style={{marginLeft: '1vh'}} src="/react-weather/Img/compass.png" /></p>
-                        <p>{weatherData.list[3].main.humidity} <img style={{marginLeft: `0.5vh`}} src={`/react-weather/Img/humidity.png`}/></p>
-                      </div>
-                    </div>
-                    <div className="weatherday">
-                      <div className="h1">
-                        <h1>{weatherData.list[4].dt_txt.slice(5, -3)}</h1>
-                        <h1>
-                          {String(weatherData.list[4].weather[0].description).charAt(0).toUpperCase() + String(weatherData.list[4].weather[0].description).slice(1)}
-                          <img style={{marginLeft: `0.5vh`}} src={`/react-weather/Img/${weatherData.list[4].weather[0].icon}.png`}/>
-                        </h1>
-                      </div>
-                      <div className="temp">
-                        <p style={{fontWeight: '650'}}>{weatherData.list[4].main.temp} C&deg;</p>
-                        <p style={{textAlign: `end`}}>Ощущается как <span style={{color: 'white', fontWeight: '650'}}>&ensp;{weatherData.list[4].main.feels_like}&nbsp;</span> C&deg;</p>
-                      </div>
-                      <div className="info_1">
-                        <p>Облачность : {weatherData.list[4].clouds.all}%</p>
-                        <p>{mRS(weatherData.list[4].main.grnd_level)} мм рт.ст</p>
-                      </div>
-                      <div className="info_2">
-                        <p><img style={{marginRight: '1vh'}} src='/react-weather/Img/wind.png'/> {weatherData.list[4].wind.speed} м/с</p>
-                        <p>{windeg(weatherData.list[4].wind.deg)} <img style={{marginLeft: '1vh'}} src="/react-weather/Img/compass.png" /></p>
-                        <p>{weatherData.list[4].main.humidity} <img style={{marginLeft: `0.5vh`}} src={`/react-weather/Img/humidity.png`}/></p>
+                      <div className="night container">
+                        <div>
+                          <h2>Ночью</h2>
+                          <h1>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + (8 + 8)].main.temp}C&deg;</h1>
+                        </div>
+                        <h2>{mRS(weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + (8 + 8)].main.grnd_level)}</h2>
+                        <h2>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + (8 + 8)].main.humidity}%</h2>
+                        <h2>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + (8 + 8)].wind.speed} {windeg(weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + (8 + 8)].wind.deg)}</h2>
+                        <h2>{weatherData.list[DayS(`${weatherData.list[0].dt_txt.slice(10, -6)}`) + (8 + 8)].main.feels_like}C&deg;</h2>
                       </div>
                     </div>
-                    <div className="weatherday">
-                      <div className="h1">
-                        <h1>{weatherData.list[5].dt_txt.slice(5, -3)}</h1>
-                        <h1>
-                          {String(weatherData.list[5].weather[0].description).charAt(0).toUpperCase() + String(weatherData.list[5].weather[0].description).slice(1)}
-                          <img style={{marginLeft: `0.5vh`}} src={`/react-weather/Img/${weatherData.list[5].weather[0].icon}.png`}/>
-                        </h1>
-                      </div>
-                      <div className="temp">
-                        <p style={{fontWeight: '650'}}>{weatherData.list[5].main.temp} C&deg;</p>
-                        <p style={{textAlign: `end`}}>Ощущается как <span style={{color: 'white', fontWeight: '650'}}>&ensp;{weatherData.list[5].main.feels_like}&nbsp;</span> C&deg;</p>
-                      </div>
-                      <div className="info_1">
-                        <p>Облачность : {weatherData.list[5].clouds.all}%</p>
-                        <p>{mRS(weatherData.list[5].main.grnd_level)} мм рт.ст</p>
-                      </div>
-                      <div className="info_2">
-                        <p><img style={{marginRight: '1vh'}} src='/react-weather/Img/wind.png'/> {weatherData.list[5].wind.speed} м/с</p>
-                        <p>{windeg(weatherData.list[5].wind.deg)} <img style={{marginLeft: '1vh'}} src="/react-weather/Img/compass.png" /></p>
-                        <p>{weatherData.list[5].main.humidity} <img style={{marginLeft: `0.5vh`}} src={`/react-weather/Img/humidity.png`}/></p>
-                      </div>
-                    </div>
-                    <div className="weatherday">
-                      <div className="h1">
-                        <h1>{weatherData.list[6].dt_txt.slice(5, -3)}</h1>
-                        <h1>
-                          {String(weatherData.list[6].weather[0].description).charAt(0).toUpperCase() + String(weatherData.list[6].weather[0].description).slice(1)}
-                          <img style={{marginLeft: `0.5vh`}} src={`/react-weather/Img/${weatherData.list[6].weather[0].icon}.png`}/>
-                        </h1>
-                      </div>
-                      <div className="temp">
-                        <p style={{fontWeight: '650'}}>{weatherData.list[6].main.temp} C&deg;</p>
-                        <p style={{textAlign: `end`}}>Ощущается как <span style={{color: 'white', fontWeight: '650'}}>&ensp;{weatherData.list[6].main.feels_like}&nbsp;</span> C&deg;</p>
-                      </div>
-                      <div className="info_1">
-                        <p>Облачность : {weatherData.list[6].clouds.all}%</p>
-                        <p>{mRS(weatherData.list[6].main.grnd_level)} мм рт.ст</p>
-                      </div>
-                      <div className="info_2">
-                        <p><img style={{marginRight: '1vh'}} src='/react-weather/Img/wind.png'/> {weatherData.list[6].wind.speed} м/с</p>
-                        <p>{windeg(weatherData.list[6].wind.deg)} <img style={{marginLeft: '1vh'}} src="/react-weather/Img/compass.png" /></p>
-                        <p>{weatherData.list[6].main.humidity} <img style={{marginLeft: `0.5vh`}} src={`/react-weather/Img/humidity.png`}/></p>
-                      </div>
-                    </div>
-                    <div className="weatherday">
-                      <div className="h1">
-                        <h1>{weatherData.list[7].dt_txt.slice(5, -3)}</h1>
-                        <h1>
-                          {String(weatherData.list[7].weather[0].description).charAt(0).toUpperCase() + String(weatherData.list[7].weather[0].description).slice(1)}
-                          <img style={{marginLeft: `0.5vh`}} src={`/react-weather/Img/${weatherData.list[7].weather[0].icon}.png`}/>
-                        </h1>
-                      </div>
-                      <div className="temp">
-                        <p style={{fontWeight: '650'}}>{weatherData.list[7].main.temp} C&deg;</p>
-                        <p style={{textAlign: `end`}}>Ощущается как <span style={{color: 'white', fontWeight: '650'}}>&ensp;{weatherData.list[7].main.feels_like}&nbsp;</span> C&deg;</p>
-                      </div>
-                      <div className="info_1">
-                        <p>Облачность : {weatherData.list[7].clouds.all}%</p>
-                        <p>{mRS(weatherData.list[7].main.grnd_level)} мм рт.ст</p>
-                      </div>
-                      <div className="info_2">
-                        <p><img style={{marginRight: '1vh'}} src='/react-weather/Img/wind.png'/> {weatherData.list[7].wind.speed} м/с</p>
-                        <p>{windeg(weatherData.list[7].wind.deg)} <img style={{marginLeft: '1vh'}} src="/react-weather/Img/compass.png" /></p>
-                        <p>{weatherData.list[7].main.humidity} <img style={{marginLeft: `0.5vh`}} src={`/react-weather/Img/humidity.png`}/></p>
-                      </div>
-                    </div>
-                    <div className="weatherday">
-                      <div className="h1">
-                        <h1>{weatherData.list[8].dt_txt.slice(5, -3)}</h1>
-                        <h1>
-                          {String(weatherData.list[8].weather[0].description).charAt(0).toUpperCase() + String(weatherData.list[8].weather[0].description).slice(1)}
-                          <img style={{marginLeft: `0.5vh`}} src={`/react-weather/Img/${weatherData.list[8].weather[0].icon}.png`}/>
-                        </h1>
-                      </div>
-                      <div className="temp">
-                        <p style={{fontWeight: '650'}}>{weatherData.list[8].main.temp} C&deg;</p>
-                        <p style={{textAlign: `end`}}>Ощущается как <span style={{color: 'white', fontWeight: '650'}}>&ensp;{weatherData.list[8].main.feels_like}&nbsp;</span> C&deg;</p>
-                      </div>
-                      <div className="info_1">
-                        <p>Облачность : {weatherData.list[8].clouds.all}%</p>
-                        <p>{mRS(weatherData.list[8].main.grnd_level)} мм рт.ст</p>
-                      </div>
-                      <div className="info_2">
-                        <p><img style={{marginRight: '1vh'}} src='/react-weather/Img/wind.png'/> {weatherData.list[8].wind.speed} м/с</p>
-                        <p>{windeg(weatherData.list[8].wind.deg)} <img style={{marginLeft: '1vh'}} src="/react-weather/Img/compass.png" /></p>
-                        <p>{weatherData.list[8].main.humidity} <img style={{marginLeft: `0.5vh`}} src={`/react-weather/Img/humidity.png`}/></p>
-                      </div>
-                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                   </div>
                 </div>
               </div>
